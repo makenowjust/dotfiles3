@@ -1,0 +1,9 @@
+[user]
+  name = TSUYUSATO Kitsune
+  email = make.just.on@gmail.com
+
+[push]
+  default = simple
+
+[core]
+  editor = vim

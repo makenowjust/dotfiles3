@@ -22,7 +22,18 @@ end
 # aliasがバグってるとしか思えないので適当に直す
 # https://github.com/fish-shell/fish-shell/issues/393
 function alias --argument alias command
-    eval "function $alias; $command \$argv; end"
+    set -l cmd (echo $command | sed 's/ /\n/g')[1]
+    set -l prefix
+    if type -q $cmd
+      switch (type -t $cmd)
+        case builtin
+          set prefix builtin
+        case file
+          set prefix command
+      end
+    end
+
+    eval "function $alias; $prefix $command \$argv; end"
     complete -c $alias -xa "(
         set -l cmd (commandline -pc | sed -e 's/^ *\S\+ *//' );
         complete -C\"$command \$cmd\";

@@ -1,3 +1,6 @@
+# PATHを設定
+source ~/.config/fish/path.fish
+
 # 起動時に何も表示しない
 function fish_greeting
 end

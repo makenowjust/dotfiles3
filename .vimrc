@@ -32,6 +32,12 @@ NeoBundle 'vim-jp/vimdoc-ja'
 
 " statuslineをかっこよくする
 NeoBundle 'itchyny/lightline.vim'
+
+" 言語毎のシンタックスハイライトなど
+
+" TOML
+NeoBundle 'cespare/vim-toml'
+
 call neobundle#end()
 
 filetype plugin indent on

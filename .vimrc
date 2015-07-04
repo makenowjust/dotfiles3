@@ -55,6 +55,9 @@ set listchars=tab:>-,extends:<,trail:-
 " statuslineを常に表示
 set laststatus=2
 
+" コマンドラインの行数を2にする
+set cmdheight=2
+
 " タブは基本2文字幅で
 set tabstop=2
 set softtabstop=2

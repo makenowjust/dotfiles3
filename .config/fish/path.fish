@@ -14,6 +14,12 @@ function append_path
   end
 end
 
+# HOME直下のlocalを設定
+prepend_path ~/local/bin
+set -x MANPATH ":~/local/share/man"
+
 # vvm(https://github.com/kana/vim-version-manager)の設定
 prepend_path ~/.vvm/bin
 prepend_path ~/.vvm/vims/current/bin
+
+

@@ -54,8 +54,12 @@ alias xclip 'xclip -selection clipboard'
 
 # エイリアス
 alias cls 'clear'
+
 alias mh 'mv -t .'
 alias ch 'cp -t .'
+
+# git as git + hub
+alias git 'hub'
 
 alias gst 'git status -s -b'
 alias gcm 'git commit'
@@ -71,3 +75,4 @@ alias gm 'git merge'
 alias gdiff 'git diff HEAD'
 alias gcl 'git clone --recursive'
 alias ginit 'git init'
+alias glog 'git log'

@@ -24,6 +24,14 @@ NeoBundle 'Shougo/vimproc.vim', {
 " カラースキーム
 NeoBundle 'sjl/badwolf'
 
+" 検索をいい感じに
+NeoBundle 'haya14busa/incsearch.vim'
+
+" ドキュメントを日本語に(ゆとり)
+NeoBundle 'vim-jp/vimdoc-ja'
+
+" statuslineをかっこよくする
+NeoBundle 'itchyny/lightline.vim'
 call neobundle#end()
 
 filetype plugin indent on

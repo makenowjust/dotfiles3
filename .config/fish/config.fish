@@ -48,8 +48,9 @@ end
 alias rm 'rm -i'
 alias mv 'mv -i'
 alias cp 'cp -i'
-
+alias emacs 'emacs -nw'
 alias mkdir 'mkdir -p'
+alias xclip 'xclip -selection clipboard'
 
 # エイリアス
 alias cls 'clear'

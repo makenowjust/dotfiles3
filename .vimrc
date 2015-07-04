@@ -1,4 +1,4 @@
-if 0 | endif
+if !1 | finish | endif
 
 set nocompatible
 

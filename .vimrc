@@ -1,5 +1,7 @@
 if 0 | endif
 
+set nocompatible
+
 if has('vim_starting')
   set rtp+=~/.vim/bundle/neobundle.vim
 endif

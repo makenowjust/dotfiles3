@@ -34,13 +34,13 @@ function alias --argument alias command
         case file
           set prefix command
       end
-    end
 
-    eval "function $alias; $prefix $command \$argv; end"
-    complete -c $alias -xa "(
-        set -l cmd (commandline -pc | sed -e 's/^ *\S\+ *//' );
-        complete -C\"$command \$cmd\";
-    )"
+      eval "function $alias; $prefix $command \$argv; end"
+      complete -c $alias -xa "(
+          set -l cmd (commandline -pc | sed -e 's/^ *\S\+ *//' );
+          complete -C\"$command \$cmd\";
+      )"
+    end
 end
 
 # 元からあるコマンドにオプションを追加

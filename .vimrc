@@ -35,6 +35,9 @@ NeoBundle 'itchyny/lightline.vim'
 " TOML
 NeoBundle 'cespare/vim-toml'
 
+" fish shell
+NeoBundle 'dag/vim-fish'
+
 call neobundle#end()
 
 filetype plugin indent on

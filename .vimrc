@@ -22,7 +22,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \}
 
 " カラースキーム
-NeoBundle 'sjl/badwolf'
+NeoBundle 'MakeNowJust/islenauts.vim'
 
 " 検索をいい感じに
 NeoBundle 'haya14busa/incsearch.vim'
@@ -86,7 +86,7 @@ syntax on
 if !has('gui_running')
   set t_Co=256
 endif
-color badwolf
+color islenauts
 
 " 背景を透過する
 hi Normal ctermbg=none

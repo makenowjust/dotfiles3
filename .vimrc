@@ -1,16 +1,21 @@
+" vim: fdm=marker fdc=3 fdl=0
+
+" 互換性 {{{1
 if !1 | finish | endif
 
 set nocompatible
 
+" NeoBundleとプラグインの読み込み {{{1
 if has('vim_starting')
   set rtp+=~/.vim/bundle/neobundle.vim
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 
-" NeoBundleでNeoBundle自身を管理
+" NeoBundleでNeoBundle自身を管理 {{{2
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" VimProc {{{2
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
       \   'windows' : 'tools\\update-dll-mingw',
@@ -21,32 +26,46 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ },
       \}
 
-" カラースキーム
+" カラースキーム {{{2
 NeoBundle 'MakeNowJust/islenauts.vim'
 
-" 検索をいい感じに
+" 検索をいい感じに {{{2
 NeoBundle 'haya14busa/incsearch.vim'
 
-" statuslineをかっこよくする
+" statuslineをかっこよくする {{{2
 NeoBundle 'itchyny/lightline.vim'
 
-" 言語毎のシンタックスハイライトなど
+" 言語毎のシンタックスハイライトなど {{{2
 
-" TOML
+" TOML {{{3
 NeoBundle 'cespare/vim-toml'
 
-" fish shell
+" fish shell {{{3
 NeoBundle 'dag/vim-fish'
 
+" NeoBundleの終了処理 {{{2
 call neobundle#end()
 
 filetype plugin indent on
 
 NeoBundleCheck
 
+" Vimプラグイン開発モード {{{2
+" 起動時に末尾が.vimのディレクトリを開いた場合、runtimepathの先頭にそのディレクトリを追加
+let s:m = matchstr(getcwd(), '\v^(.*\.vim(/|$))')
+if !empty(s:m)
+  exe 'set rtp^=' . s:m
+endif
+unlet s:m
+
+" set系 {{{1
+
 " 行番号の表示
 set number
 set numberwidth=6
+
+" 相対的な行番号を表示する
+set relativenumber
 
 " タブ文字や末尾の空白を可視化
 set list
@@ -57,6 +76,9 @@ set laststatus=2
 
 " コマンドラインの行数を2にする
 set cmdheight=2
+
+" tablineを常に表示
+set showtabline=2
 
 " タブは基本2文字幅で
 set tabstop=2
@@ -75,40 +97,59 @@ endif
 " 現在行を強調する
 set cursorline
 
+" 行に余裕があるうちにスクロール
+set scrolloff=10
+
 " バックスペースでインデント、改行を削除
 set backspace=indent,eol,start
 
-" カーソルでの移動時に行末、行頭で止まらないようにする
+" カーソル/Backspaceでの移動時に行末、行頭で止まらないようにする
 set whichwrap=b,s
+
+" 検索結果を強調する
+set hlsearch
+
+" 3行目までをmodelineとする
+set modeline
+set modelines=3
+
+" システムのクリップボードと共有する
+set clipboard=unnamedplus
+
+" シンタックスハイライトを有効にする {{{1
+"
+" Markdownでハイライト可能な言語の指定
+let g:markdown_fenced_languages = [
+      \ 'css',
+      \ 'javascript', 'js=javascript',
+      \ 'json',
+      \ 'ruby',
+      \ 'viml=vim',
+\]
 
 " シンタックスハイライトの設定
 syntax on
 if !has('gui_running')
   set t_Co=256
 endif
-color islenauts
 
-" 背景を透過する
-hi Normal ctermbg=none
-hi NonText ctermbg=none
-
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backword)
-map g/ <Plug>(incsearch-stay)
+" マッピングの設定 {{{1
 
 " <C-p>と間違えると色々出てきてかなりウザいので
 inoremap <C-@> <Nop>
 
 " デフォルトのExコマンドを上書きしたい!
-function! s:CmdRemap(char, command)
+function! s:cmd_remap(char, command)
   exe 'cnoreabbrev <expr> ' . a:char . ' getcmdtype() == ":" && getcmdline() == "' . a:char . '" ? "' . a:command . '" : "' . a:char . '"'
 endfunction
 
 " みんなタブになればいい
-call s:CmdRemap('e', 'tabe')
-call s:CmdRemap('h', 'tab help')
+call s:cmd_remap('e', 'tabe')
+call s:cmd_remap('h', 'tab help')
 
-" 現在位置のシンタックス情報を取得する
+" 自作コマンド類 {{{1
+
+" 現在位置のシンタックス情報を取得する {{{2
 function! s:get_syn_id(transparent)
   let synid = synID(line("."), col("."), 1)
   if a:transparent
@@ -146,3 +187,35 @@ function! s:get_syn_info()
         \ " guibg: " . linkedSyn.guibg
 endfunction
 command! SyntaxInfo call s:get_syn_info()
+
+" 各プラグインの設定 {{{1
+
+" islenauts.vim {{{2
+if neobundle#tap('islenauts.vim')
+  colorscheme islenauts
+
+  " 背景を透過する
+  hi Normal ctermbg=none
+  hi NonText ctermbg=none
+  hi CursorLine ctermbg=none
+  hi CursorColumn ctermbg=none
+
+  call neobundle#untap()
+endif
+
+" incsearch.vim {{{2
+if neobundle#tap('incsearch.vim')
+  map / <Plug>(incsearch-forward)
+  map ? <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stey)
+
+  let g:incsearch#auto_nohlsearch = 1
+  map n <Plug>(incsearch-nohl-n)
+  map N <Plug>(incsearch-nohl-N)
+  map * <Plug>(incsearch-nohl-*)
+  map # <Plug>(incsearch-nohl-#)
+  map g* <Plug>(incsearch-nohl-g*)
+  map g# <Plug>(incsearch-nohl-g#)
+
+  call neobundle#untap()
+endif

@@ -1,1 +1,2 @@
-set guifont=Takao\ ゴシック\ 10
+set guifont=Droid\ Sans\ Mono\ 10
+set guioptions=

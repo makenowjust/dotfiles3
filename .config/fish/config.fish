@@ -61,6 +61,9 @@ alias cls 'clear'
 alias mh 'mv -t .'
 alias ch 'cp -t .'
 
+alias .. 'prevd'
+alias ,, 'nextd'
+
 # git as git + hub
 alias git 'hub'
 
@@ -79,3 +82,4 @@ alias gdiff 'git diff HEAD'
 alias gcl 'git clone --recursive'
 alias ginit 'git init'
 alias glog 'git log'
+alias greset 'git reset'

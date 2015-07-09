@@ -5,6 +5,18 @@ if !1 | finish | endif
 
 set nocompatible
 
+" その他初期化 {{{1
+" 忘れないうちに全部消しておく
+augroup MYVIMRC
+  au!
+augroup END
+
+" fish-shellはVimに向かない
+set shell=/bin/bash
+
+" Vimに付属のプラグイン {{{1
+source $VIMRUNTIME/macros/matchit.vim
+
 " NeoBundleとプラグインの読み込み {{{1
 if has('vim_starting')
   set rtp+=~/.vim/bundle/neobundle.vim

@@ -47,6 +47,10 @@ NeoBundle 'haya14busa/incsearch.vim'
 " statuslineをかっこよくする {{{2
 NeoBundle 'itchyny/lightline.vim'
 
+" Gitの状態を表示 {{{2
+" NeoBundle 'airblade/vim-gitgutter'
+" ↑重い
+
 " 言語毎のシンタックスハイライトなど {{{2
 
 " TOML {{{3

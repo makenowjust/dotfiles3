@@ -170,21 +170,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 
-" マッピングの設定 {{{1
-
-" <C-p>と間違えると色々出てきてかなりウザいので
-inoremap <C-@> <Nop>
-
-" デフォルトのExコマンドを上書きしたい!
-function! s:cmd_remap(char, command)
-  exe 'cnoreabbrev <expr> ' . a:char . ' getcmdtype() == ":" && getcmdline() == "' . a:char . '" ? "' . a:command . '" : "' . a:char . '"'
-endfunction
-
-" みんなタブになればいい
-call s:cmd_remap('e', 'tabe')
-call s:cmd_remap('h', 'tab help')
-
-" 自作コマンド類 {{{1
+" 自作コマンド、関数 {{{1
 
 " 現在位置のシンタックス情報を取得する {{{2
 function! s:get_syn_id(transparent)
@@ -199,31 +185,76 @@ function! s:get_syn_attr(synid)
   let name = synIDattr(a:synid, "name")
   let ctermfg = synIDattr(a:synid, "fg", "cterm")
   let ctermbg = synIDattr(a:synid, "bg", "cterm")
+  let ctermbold = synIDattr(a:synid, "bold", "cterm")
   let guifg = synIDattr(a:synid, "fg", "gui")
   let guibg = synIDattr(a:synid, "bg", "gui")
+  let guibold = synIDattr(a:synid, "bold", "gui")
   return {
         \ "name": name,
         \ "ctermfg": ctermfg,
         \ "ctermbg": ctermbg,
+        \ "ctermbold": ctermbold,
         \ "guifg": guifg,
-        \ "guibg": guibg}
+        \ "guibg": guibg,
+        \ "guibold": guibold}
 endfunction
 function! s:get_syn_info()
   let baseSyn = s:get_syn_attr(s:get_syn_id(0))
   echo "name: " . baseSyn.name .
         \ " ctermfg: " . baseSyn.ctermfg .
         \ " ctermbg: " . baseSyn.ctermbg .
+        \ " cterm: " . (baseSyn.ctermbold == 1 ? "bold" : "") .
         \ " guifg: " . baseSyn.guifg .
-        \ " guibg: " . baseSyn.guibg
+        \ " guibg: " . baseSyn.guibg .
+        \ " gui: " . (baseSyn.guibold == 1 ? "bold" : "")
   let linkedSyn = s:get_syn_attr(s:get_syn_id(1))
   echo "link to"
   echo "name: " . linkedSyn.name .
         \ " ctermfg: " . linkedSyn.ctermfg .
         \ " ctermbg: " . linkedSyn.ctermbg .
+        \ " cterm: " . (linkedSyn.ctermbold == 1 ? "bold" : "") .
         \ " guifg: " . linkedSyn.guifg .
-        \ " guibg: " . linkedSyn.guibg
+        \ " guibg: " . linkedSyn.guibg .
+        \ " gui: " . (linkedSyn.guibold == 1 ? "bold" : "")
 endfunction
 command! SyntaxInfo call s:get_syn_info()
+
+" 選択範囲をcolorcolumnで指定 {{{2
+function! s:visual_colorcolumn()
+  let start = getpos("'<")[2]
+  let end = getpos("'>")[2]
+  let r = join(range(start, end), ",")
+  if r == &cc
+    setl cc=
+  else
+    exe 'setl cc=' . r
+  endif
+endfunction
+command! -range VisualColorColumn call s:visual_colorcolumn()
+
+" マッピングの設定 {{{1
+
+" <C-p>と間違えると色々出てきてかなりウザいので
+inoremap <c-@> <nop>
+
+" デフォルトのexコマンドを上書きしたい!
+function! s:cmd_remap(char, command)
+  exe 'cnoreabbrev <expr> ' . a:char . ' getcmdtype() == ":" && getcmdline() == "' . a:char . '" ? "' . a:command . '" : "' . a:char . '"'
+endfunction
+
+" みんなタブになればいい
+call s:cmd_remap('e', 'tabe')
+call s:cmd_remap('h', 'tab help')
+
+noremap <silent> cc :VisualColorColumn<CR>
+noremap <silent> cl :setl cursorcolumn!<CR>
+
+" wとbを調整
+" wをWの挙動にして、wで進みすぎたときにWで戻れるようにしたい
+noremap w W
+noremap W B
+noremap b b
+noremap B w
 
 " 各プラグインの設定 {{{1
 

@@ -4,9 +4,8 @@ set -g fish_term24bit 1
 # PATHを設定
 source ~/.config/fish/env.fish
 
-# 起動時に何も表示しない
-function fish_greeting
-end
+# あとは対話シェル以外では実行しなくてもいい
+if status --is-interactive
 
 # notify_time以上時間がかかったとき、デスクトップに通知を行なう
 # (単位はミリ秒)
@@ -83,3 +82,4 @@ alias gcl 'git clone --recursive'
 alias ginit 'git init'
 alias glog 'git log'
 alias greset 'git reset'
+end

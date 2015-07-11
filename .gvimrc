@@ -1,2 +1,2 @@
-set guifont=Droid\ Sans\ Mono\ 10
+set guifont=Envy\ Code\ R\ 11,Droid\ Sans\ Mono\ 11
 set guioptions=

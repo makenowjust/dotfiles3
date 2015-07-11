@@ -2,7 +2,7 @@
 set -g fish_term24bit 1
 
 # PATHを設定
-source ~/.config/fish/path.fish
+source ~/.config/fish/env.fish
 
 # 起動時に何も表示しない
 function fish_greeting

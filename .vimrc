@@ -138,6 +138,21 @@ set modelines=3
 " システムのクリップボードと共有する
 set clipboard=unnamedplus
 
+" 現在位置などを保存
+set viewoptions=cursor,folds
+augroup MYVIMRC
+  au! BufWinLeave ?* silent mkview
+  au! BufWinEnter ?* silent loadview
+augroup END
+
+" バックアップ
+set backup
+set backupdir=$HOME/\.vim_backup
+set writebackup
+
+" スワップファイルは作成しない
+set noswapfile
+
 " シンタックスハイライトを有効にする {{{1
 "
 " Markdownでハイライト可能な言語の指定

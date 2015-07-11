@@ -59,6 +59,9 @@ NeoBundle 'cespare/vim-toml'
 " fish shell {{{3
 NeoBundle 'dag/vim-fish'
 
+" Crystal {{{3
+NeoBundle 'rhysd/vim-crystal'
+
 " NeoBundleの終了処理 {{{2
 call neobundle#end()
 

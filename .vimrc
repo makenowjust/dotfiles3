@@ -74,6 +74,9 @@ NeoBundleCheck
 let s:m = matchstr(getcwd(), '\v^(.*\.vim(/|$))')
 if !empty(s:m)
   exe 'set rtp^=' . s:m
+  if !empty(glob(s:m . '/,vimrc'))
+    exe 'source ' . s:m . '/,vimrc'
+  endif
 endif
 unlet s:m
 

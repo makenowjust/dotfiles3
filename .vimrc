@@ -266,7 +266,7 @@ if neobundle#tap('islenauts.vim')
   hi Normal ctermbg=none
   hi NonText ctermbg=none
   hi CursorLine ctermbg=none
-  hi CursorColumn ctermbg=none
+  " hi CursorColumn ctermbg=none
 
   call neobundle#untap()
 endif

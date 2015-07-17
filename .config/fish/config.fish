@@ -77,6 +77,7 @@ if status --is-interactive
   alias gadp 'gad -p'
   alias gps 'git push'
   alias gpsu 'gps -u'
+  alias gpst 'gps --tags'
   alias gpl 'git pull'
   alias gf 'git fetch'
   alias gm 'git merge'
@@ -88,5 +89,6 @@ if status --is-interactive
   alias grm 'git rm'
   alias gco 'git checkout'
   alias gcob 'gco -b'
+  alias gtag 'git tag'
 
 end

@@ -1,0 +1,6 @@
+ignore README.md install.bash
+
+break-dir fish/functions
+break-dir vim/bundle/neobundle.vim
+
+fix-dir fish .config/fish

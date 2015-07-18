@@ -42,7 +42,7 @@ cd-dotfiles-top() {
   if [[ -f ".dotfiles" ]]; then
     DOTFILES="$PWD"
   else
-    if cd .. 2>/dev/null; then
+    if ! cd .. 2>/dev/null; then
       echo "DOTFILES not found"
       exit 1
     fi

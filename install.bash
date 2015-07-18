@@ -21,12 +21,7 @@ nop() {
 }
 
 link() {
-  if [[ -L "$2" ]]; then
-    if [[ "$1" == "$(readlink "$2")" ]]; then
-      return 0
-    fi
-  fi
-  run ln -vsf "$1" "$2"
+  run ln -vnsf "$1" "$2"
 }
 
 make-dir() {

@@ -13,3 +13,6 @@
   pushInsteadOf = git://github.com
   pushInsteadOf = https://github.com/
 
+# Gistでも
+[url "git@gist.github.com:"]
+  pushInsteadOf = https://gist.github.com/

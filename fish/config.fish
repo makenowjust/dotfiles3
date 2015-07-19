@@ -63,6 +63,7 @@ if status --is-interactive
   alias emacs 'emacs -nw'
   alias mkdir 'mkdir -p'
   alias xclip 'xclip -selection clipboard'
+  alias less 'less -r'
 
   # エイリアス
   alias cls 'clear'

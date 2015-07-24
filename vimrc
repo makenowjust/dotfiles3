@@ -36,11 +36,11 @@ NeoBundle 'Shougo/vimproc.vim', {
       \}
 
 " VimShell {{{2
-NeoBundle 'Shougo/vimshell.vim', { 'depends': 'Shougo/vimproc.vim' }
+NeoBundle 'Shougo/vimshell.vim'
 
 " カラースキーム {{{2
 NeoBundle 'MakeNowJust/islenauts.vim'
-NeoBundle 'MakeNowJust/islenauts-lightline.vim', { 'depends': ['itchyny/lightline.vim'] }
+NeoBundle 'MakeNowJust/islenauts-lightline.vim'
 
 " 検索をいい感じに {{{2
 NeoBundle 'haya14busa/incsearch.vim'

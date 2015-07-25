@@ -1,0 +1,6 @@
+# 行番号を表示するようにする
+hook global WinCreate .* %{
+  addhl number_lines
+  addhl show_matching
+  addhl search
+}

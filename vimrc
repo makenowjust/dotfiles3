@@ -25,18 +25,10 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " VimProc {{{2
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \   'windows' : 'tools\\update-dll-mingw',
-      \   'cygwin' : 'make -f make_cygwin.mak',
-      \   'mac' : 'make -f make_mac.mak',
-      \   'linux' : 'make',
-      \   'unix' : 'gmake',
-      \ },
-      \}
+NeoBundle 'Shougo/vimproc.vim'
 
 " VimShell {{{2
-NeoBundle 'Shougo/vimshell.vim'
+NeoBundleLazy 'Shougo/vimshell.vim'
 
 " カラースキーム {{{2
 NeoBundle 'MakeNowJust/islenauts.vim'
@@ -49,34 +41,33 @@ NeoBundle 'haya14busa/incsearch.vim'
 NeoBundle 'itchyny/lightline.vim'
 
 " Gist {{{2
-NeoBundleLazy 'lambdalisue/vim-gista', {
-      \ 'autoload': {
-      \   'commands': ['Gista'],
-      \   'mappings': '<Plug>(gista-',
-      \   'unite_sources': 'gista',
-      \ } }
+NeoBundleLazy 'lambdalisue/vim-gista'
 
 " Unite {{{2
 NeoBundle 'Shougo/unite.vim'
 
 " ファイラ {{{2
-NeoBundle 'Shougo/vimfiler.vim', {'depends': ['Shougo/unite.vim']}
+NeoBundleLazy 'Shougo/vimfiler.vim'
+
+" editorconfig {{{2
+NeoBundle 'editorconfig/editorconfig-vim'
 
 " 言語毎のシンタックスハイライトなど {{{2
 
 " TOML {{{3
-NeoBundle 'cespare/vim-toml'
+NeoBundleLazy 'cespare/vim-toml'
 
 " fish shell {{{3
-NeoBundle 'dag/vim-fish'
+NeoBundleLazy 'dag/vim-fish'
 
 " Crystal {{{3
-NeoBundle 'rhysd/vim-crystal'
+NeoBundleLazy 'rhysd/vim-crystal'
+
+" Ruby {{{3
+NeoBundleLazy 'vim-ruby/vim-ruby'
 
 " NeoBundleの終了処理 {{{2
 call neobundle#end()
-
-filetype plugin indent on
 
 NeoBundleCheck
 
@@ -164,27 +155,14 @@ set backup
 set backupdir=$HOME/\.vim_backup
 set writebackup
 
+" Undoの状態を保存
+set undofile
+set undodir=$HOME/\.vim_undo
+
 " スワップファイルは作成しない
 set noswapfile
 
-" シンタックスハイライトを有効にする {{{1
-"
-" Markdownでハイライト可能な言語の指定
-let g:markdown_fenced_languages = [
-      \ 'css',
-      \ 'javascript', 'js=javascript',
-      \ 'json',
-      \ 'ruby',
-      \ 'viml=vim',
-\]
-
-" シンタックスハイライトの設定
-syntax on
-if !has('gui_running')
-  set t_Co=256
-endif
-
-" 自作コマンド、関数 {{{1
+" 自作の処理たち {{{1
 
 " 現在位置のシンタックス情報を取得する {{{2
 function! s:get_syn_id(transparent)
@@ -272,6 +250,34 @@ noremap B W
 
 " 各プラグインの設定 {{{1
 
+" vimproc.vim {{{2
+if neobundle#tap('vimproc.vim')
+  call neobundle#config({
+        \ 'build' : {
+        \   'windows' : 'tools\\update-dll-mingw',
+        \   'cygwin' : 'make -f make_cygwin.mak',
+        \   'mac' : 'make -f make_mac.mak',
+        \   'linux' : 'make',
+        \   'unix' : 'gmake',
+        \ },
+        \})
+
+  call neobundle#untap()
+endif
+
+" vimshell.vim {{{2
+if neobundle#tap('vimshell.vim')
+  call neobundle#config({
+        \ 'autoload' : {
+        \   'commands' : [{ 'name' : 'VimShell',
+        \                   'complete' : 'customlist,vimshell#complete'},
+        \                 'VimShellExecute', 'VimShellInteractive',
+        \                 'VimShellTerminal', 'VimShellPop'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
 " islenauts.vim {{{2
 if neobundle#tap('islenauts.vim')
   colorscheme islenauts
@@ -323,6 +329,13 @@ endif
 
 " vim-gista {{{2
 if neobundle#tap('vim-gista')
+  call neobundle#config({
+      \ 'autoload': {
+      \   'commands': ['Gista'],
+      \   'mappings': '<Plug>(gista-',
+      \   'unite_sources': 'gista',
+      \ }})
+
   let g:gista#github_user = 'MakeNowJust'
   " タブで開いてくれると嬉しいかなって
   let g:gista#list_opener = 'tabe'
@@ -337,6 +350,17 @@ endif
 
 " vimfiler.vim {{{2
 if neobundle#tap('vimfiler.vim')
+  call neobundle#config({
+        \ 'autoload' : {
+        \    'commands' : [{ 'name' : 'VimFiler',
+        \                    'complete' : 'customlist,vimfiler#complete' },
+        \                  'VimFilerExplorer',
+        \                  'Edit', 'Read', 'Source', 'Write'],
+        \    'mappings' : '<Plug>',
+        \    'explorer' : 1,
+        \ }
+        \})
+
   " デフォルトのファイラとして指定
   let g:vimfiler_as_default_explorer = 1
 
@@ -348,3 +372,47 @@ if neobundle#tap('vimfiler.vim')
 
   call neobundle#untap()
 endif
+
+" vim-toml {{{2
+if neobundle#tap('vim-toml')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['toml'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" vim-fish {{{2
+if neobundle#tap('vim-fish')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['fish'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" vim-crystal {{{2
+if neobundle#tap('vim-crystal')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['crystal', 'markdown'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" vim-ruby {{{2
+if neobundle#tap('vim-ruby')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['ruby', 'markdown'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" filetypeを有効にする {{{1
+
+filetype plugin indent on

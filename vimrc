@@ -71,17 +71,6 @@ call neobundle#end()
 
 NeoBundleCheck
 
-" Vimプラグイン開発モード {{{2
-" 起動時に末尾が.vimのディレクトリを開いた場合、runtimepathの先頭にそのディレクトリを追加
-let s:m = matchstr(getcwd(), '\v^(.*\.vim(/|$))')
-if !empty(s:m)
-  exe 'set rtp^=' . s:m
-  if !empty(glob(s:m . '/,vimrc'))
-    exe 'source ' . s:m . '/,vimrc'
-  endif
-endif
-unlet s:m
-
 " set系 {{{1
 
 " 行番号の表示
@@ -223,6 +212,35 @@ function! s:visual_colorcolumn()
   endif
 endfunction
 command! -range VisualColorColumn call s:visual_colorcolumn()
+
+" Vimプラグイン開発モード {{{2
+" 起動時に末尾が.vimのディレクトリを開いた場合、runtimepathの先頭にそのディレクトリを追加
+let s:m = matchstr(getcwd(), '\v^(.*(.vim|/vim-[^/]+)(/|$))')
+if !empty(s:m)
+  exe 'set rtp^=' . s:m
+  if !empty(glob(s:m . '/,vimrc'))
+    exe 'source ' . s:m . '/,vimrc'
+  endif
+endif
+unlet s:m
+
+" シンタックスハイライトの設定 {{{1
+
+" Markdownでハイライト可能な言語の指定
+let g:markdown_fenced_languages = [
+      \ 'css',
+      \ 'javascript', 'js=javascript',
+      \ 'json',
+      \ 'ruby',
+      \ 'viml=vim',
+      \ 'crystal',
+      \ ]
+
+" シンタックスハイライトを有効にする
+syntax on
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " マッピングの設定 {{{1
 

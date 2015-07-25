@@ -4,7 +4,7 @@ if test "$TERM" = "xterm"
 end
 
 # 24bit trueカラーで表示するようにする
-if echo $TERM | grep '^(xterm|screen)'
+if test $TERM == 'xterm-256color'
   set -g fish_term24bit 1
 end
 

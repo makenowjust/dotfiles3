@@ -1,6 +1,27 @@
-# 行番号を表示するようにする
 hook global WinCreate .* %{
-  addhl number_lines
+  # display line numbers
+  addhl number_lines -hlcursor -relative
+  # show matching parans and other
   addhl show_matching
-  addhl search
 }
+
+# use my colorscheme
+colorscheme islenauts
+
+# scroll offset is 10 line and 10 column
+set global scrolloff 10,10
+
+# use incremental search
+set global incsearch yes
+
+def search-/ %{
+  try %{ addhl search }
+  prompt "/" / %{
+    exec / %reg{/} <ret>
+  } -change %{
+    try %{ exec -no-hook -draft i %reg{/} <ret> }
+  }
+}
+
+map global normal / %{:search-/<ret>}
+map global normal <a-/> %{:_search-a/<ret>}

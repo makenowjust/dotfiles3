@@ -290,8 +290,11 @@ if neobundle#tap('vimshell.vim')
         \   'commands' : [{ 'name' : 'VimShell',
         \                   'complete' : 'customlist,vimshell#complete'},
         \                 'VimShellExecute', 'VimShellInteractive',
-        \                 'VimShellTerminal', 'VimShellPop'],
+        \                 'VimShellTerminal', 'VimShellPop',
+        \                 'VimShellTab'],
         \ }})
+
+  let g:vimshell_split_command = 'tabnew'
 
   call neobundle#untap()
 endif

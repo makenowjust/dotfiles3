@@ -54,6 +54,12 @@ NeoBundle 'editorconfig/editorconfig-vim'
 
 " 言語毎のシンタックスハイライトなど {{{2
 
+" HTML5 {{{3
+NeoBundleLazy "othree/html5.vim"
+
+" CSS3 {{{3
+NeoBundleLazy "hail2u/vim-css3-syntax"
+
 " TOML {{{3
 NeoBundleLazy 'cespare/vim-toml'
 
@@ -390,6 +396,26 @@ if neobundle#tap('vimfiler.vim')
         \ 'safe': 0,
         \ 'edit_action': 'tabopen',
         \ })
+
+  call neobundle#untap()
+endif
+
+" html5.vim {{{2
+if neobundle#tap('html5.vim')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['html'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" vim-css3-syntax {{{2
+if neobundle#tap('vim-css3-syntax')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['css', 'html'],
+        \ }})
 
   call neobundle#untap()
 endif

@@ -94,7 +94,7 @@ if status --is-interactive
     echo -s -n (set_color $fg_status -b $bg_status) ' ' $prompt_status ' '
     echo -s -n (set_color $fg_host -b $bg_host) ' ' "$USER" @ "$__fish_prompt_hostname" ' '
     echo -s -n (set_color $fg_pwd -b $bg_pwd) ' ' (prompt_pwd) ' '
-    if test $git_branch
+    if test $git_branch -a (command git rev-parse --is-inside-work-tree 2> /dev/null) = 'true'
       set fg_git_base_color (set_color $fg_pwd)
       set fg_git_check_add (set_color $fg_git_add)
       set fg_git_check_modify (set_color $fg_git_modify)

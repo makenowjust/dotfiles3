@@ -185,12 +185,13 @@ if status --is-interactive
   alias gdiff 'git diff HEAD'
   alias gcl 'git clone --recursive'
   alias ginit 'git init'
-  alias glog 'glog --graph --decorate --oneline'
+  alias glog 'git log --graph --decorate --oneline'
   alias greset 'git reset'
   alias grm 'git rm'
   alias gco 'git checkout'
   alias gcob 'gco -b'
   alias gtag 'git tag'
   alias gremote 'git remote'
+  alias gmv 'git mv'
 
 end

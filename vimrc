@@ -133,7 +133,11 @@ set modeline
 set modelines=3
 
 " システムのクリップボードと共有する
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
+" ↑あると、削除時にもクリップボードに文字が入ってしまって微妙
+
+" あいまいな文字の幅を2にする
+set ambiwidth=double
 
 " 折り畳みを有効にする
 set foldenable

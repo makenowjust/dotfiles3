@@ -60,6 +60,9 @@ NeoBundle 'editorconfig/editorconfig-vim'
 
 " 言語毎のシンタックスハイライトなど {{{2
 
+" pegjs {{{3
+NeoBundleLazy "alunny/pegjs-vim"
+
 " HTML5 {{{3
 NeoBundleLazy "othree/html5.vim"
 

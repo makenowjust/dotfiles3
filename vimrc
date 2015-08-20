@@ -24,6 +24,9 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " NeoBundleでNeoBundle自身を管理 {{{2
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+" vital.vim {{{2
+NeoBundle 'vim-jp/vital.vim'
+
 " VimProc {{{2
 NeoBundle 'Shougo/vimproc.vim'
 
@@ -36,6 +39,9 @@ NeoBundle 'MakeNowJust/islenauts-lightline.vim'
 
 " 検索をいい感じに {{{2
 NeoBundle 'haya14busa/incsearch.vim'
+
+" vim-quickrun {{{2
+NeoBundleLazy 'thinca/vim-quickrun'
 
 " statuslineをかっこよくする {{{2
 NeoBundle 'itchyny/lightline.vim'

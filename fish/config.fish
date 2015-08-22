@@ -157,6 +157,7 @@ if status --is-interactive
   alias mkdir 'mkdir -p'
   alias xclip 'xclip -selection clipboard'
   alias less 'less -r'
+  alias vim 'vim -p'
 
   # エイリアス
   alias cls 'clear'

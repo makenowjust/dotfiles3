@@ -23,10 +23,6 @@ prepend_env MANPATH ~/local/share/man
 prepend_env LIBRARY_PATH ~/local/lib
 prepend_env LD_LIBRARY_PATH ~/local/lib
 
-# vvm(https://github.com/kana/vim-version-manager)の設定
-prepend_env PATH ~/.vvm/bin
-prepend_env PATH ~/.vvm/vims/current/bin
-
 # linuxbrewの設定
 prepend_env PATH "$HOME/.linuxbrew/bin"
 prepend_env MANPATH "$HOME/.linuxbrew/share/man"

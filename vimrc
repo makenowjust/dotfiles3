@@ -60,14 +60,14 @@ NeoBundle 'editorconfig/editorconfig-vim'
 
 " 言語毎のシンタックスハイライトなど {{{2
 
-" pegjs {{{3
-NeoBundleLazy "alunny/pegjs-vim"
-
 " HTML5 {{{3
-NeoBundleLazy "othree/html5.vim"
+" NeoBundleLazy "othree/html5.vim"
 
-" CSS3 {{{3
-NeoBundleLazy "hail2u/vim-css3-syntax"
+" Stylus {{{3
+NeoBundleLazy "wavded/vim-stylus"
+
+" jade {{{3
+NeoBundleLazy "digitaltoad/vim-jade"
 
 " TOML {{{3
 NeoBundleLazy 'cespare/vim-toml'
@@ -80,6 +80,9 @@ NeoBundleLazy 'rhysd/vim-crystal'
 
 " Ruby {{{3
 NeoBundleLazy 'vim-ruby/vim-ruby'
+
+" pegjs {{{3
+NeoBundleLazy "alunny/pegjs-vim"
 
 " NeoBundleの終了処理 {{{2
 call neobundle#end()
@@ -118,9 +121,7 @@ set expandtab
 set textwidth=0
 set wrap
 set showbreak=+\ 
-if (v:version == 704 && has("patch338") || v:version >= 705)
-  set breakindent
-endif
+set breakindent
 
 " 現在行を強調する
 set cursorline
@@ -221,8 +222,8 @@ command! SyntaxInfo call s:get_syn_info()
 
 " 選択範囲をcolorcolumnで指定 {{{2
 function! s:visual_colorcolumn()
-  let start = getpos("'<")[2]
-  let end = getpos("'>")[2]
+  let start = col("'<")
+  let end = col("'>")
   let r = join(range(start, end), ",")
   if r == &cc
     setl cc=
@@ -243,24 +244,6 @@ if !empty(s:m)
 endif
 unlet s:m
 
-" シンタックスハイライトの設定 {{{1
-
-" Markdownでハイライト可能な言語の指定
-let g:markdown_fenced_languages = [
-      \ 'css',
-      \ 'javascript', 'js=javascript',
-      \ 'json',
-      \ 'ruby',
-      \ 'viml=vim',
-      \ 'crystal',
-      \ ]
-
-" シンタックスハイライトを有効にする
-syntax on
-if !has('gui_running')
-  set t_Co=256
-endif
-
 " マッピングの設定 {{{1
 
 " <C-p>と間違えると色々出てきてかなりウザいので
@@ -275,15 +258,9 @@ endfunction
 call s:cmd_remap('e', 'tabe')
 call s:cmd_remap('h', 'tab help')
 
-noremap <silent> cc :VisualColorColumn<CR>
-noremap <silent> cl :setl cursorcolumn!<CR>
+noremap <silent> cc :<C-u>VisualColorColumn<CR>
+noremap <silent> cl :<C-u>setl cursorcolumn!<CR>
 
-" wとbを調整
-" wをWの挙動にして、wで進みすぎたときにWで戻れるようにしたい
-noremap w w
-noremap W b
-noremap b B
-noremap B W
 
 " 各プラグインの設定 {{{1
 
@@ -305,12 +282,10 @@ endif
 " vimshell.vim {{{2
 if neobundle#tap('vimshell.vim')
   call neobundle#config({
-        \ 'autoload' : {
-        \   'commands' : [{ 'name' : 'VimShell',
-        \                   'complete' : 'customlist,vimshell#complete'},
-        \                 'VimShellExecute', 'VimShellInteractive',
-        \                 'VimShellTerminal', 'VimShellPop',
-        \                 'VimShellTab'],
+        \ 'autoload': {
+        \   'commands': [{ 'name' : 'VimShell',
+        \                  'complete' : 'customlist,vimshell#complete'}],
+        \   'command_prefix': 'VimShell',
         \ }})
 
   let g:vimshell_split_command = 'tabnew'
@@ -348,6 +323,33 @@ if neobundle#tap('incsearch.vim')
   call neobundle#untap()
 endif
 
+" vim-quickrun {{{2
+if neobundle#tap('vim-quickrun')
+  call neobundle#config({
+        \ 'autoload' : {
+        \   'command_prefix' : 'QuickRun',
+        \ }})
+
+  let g:quickrun_config = {}
+  let g:quickrun_config._ = {
+        \ 'runner': 'vimproc',
+        \ 'runner/vimproc/updatetime': 60,
+        \ 'outputter/buffer/split': ':botright',
+        \ 'outputter/buffer/close_on_empty': 1,
+        \ }
+
+  " <C-c>でquickrunを強制終了させる
+  nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
+  nnoremap [quickrun] <Nop>
+  nmap <Space>q [quickrun]
+
+  nnoremap <silent> [quickrun]q :<C-u>QuickRun<CR>
+  nnoremap <silent> [quickrun]o :<C-u>only<CR>
+
+  call neobundle#untap()
+endif
+
 " lightline.vim {{{2
 if neobundle#tap('lightline.vim')
   let g:lightline = {}
@@ -363,6 +365,22 @@ if neobundle#tap('lightline.vim')
         \ ['fileencoding', 'fileformat']
         \ ]
   let g:lightline.inactive = g:lightline.active
+  let g:lightline.component_function = {
+        \ 'fileformat': 'MyFileFormat',
+        \ 'fileencoding': 'MyFileEncoding',
+        \ }
+
+  function! MyFileFormat()
+    return {
+          \ 'unix': '"\n"',
+          \ 'dos': '"\r\n"',
+          \ 'mac': '"\r"',
+          \ }[&ff]
+  endfunction
+
+  function! MyFileEncoding()
+    return (&fenc == '' ? &enc : &fenc) . (&bomb ? '+bomb' : '')
+  endfunction
 
   call neobundle#untap()
 endif
@@ -401,14 +419,26 @@ if neobundle#tap('vimfiler.vim')
         \ }
         \})
 
-  " デフォルトのファイラとして指定
-  let g:vimfiler_as_default_explorer = 1
+  function! neobundle#tapped.hooks.on_source(bundle)
+    " デフォルトのファイラとして指定
+    let g:vimfiler_as_default_explorer = 1
 
-  " セーフモードを無効にして、タブで開く
-  call vimfiler#custom#profile('default', 'context', {
-        \ 'safe': 0,
-        \ 'edit_action': 'tabopen',
-        \ })
+    " セーフモードを無効にして、タブで開く
+    call vimfiler#custom#profile('default', 'context', {
+          \ 'safe': 0,
+          \ 'edit_action': 'tabopen',
+          \ })
+  endfunction
+
+  call neobundle#untap()
+endif
+
+" pegjs-vim {{{2
+if neobundle#tap('pegjs-vim')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['pegjs'],
+        \ }})
 
   call neobundle#untap()
 endif
@@ -423,11 +453,21 @@ if neobundle#tap('html5.vim')
   call neobundle#untap()
 endif
 
-" vim-css3-syntax {{{2
-if neobundle#tap('vim-css3-syntax')
+" vim-jade {{{2
+if neobundle#tap('vim-jade')
   call neobundle#config({
         \ 'autoload': {
-        \   'filetypes': ['css', 'html'],
+        \   'filetypes': ['jade'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" vim-stylus {{{2
+if neobundle#tap('vim-stylus')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['stylus'],
         \ }})
 
   call neobundle#untap()
@@ -473,6 +513,23 @@ if neobundle#tap('vim-ruby')
   call neobundle#untap()
 endif
 
-" filetypeを有効にする {{{1
+" シンタックスハイライトの設定 {{{1
 
+" Markdownでハイライト可能な言語の指定
+let g:markdown_fenced_languages = [
+      \ 'css',
+      \ 'javascript', 'js=javascript',
+      \ 'json',
+      \ 'ruby',
+      \ 'viml=vim',
+      \ 'crystal',
+      \ ]
+
+" シンタックスハイライトを有効にする
+if !has('gui_running')
+  set t_Co=256
+endif
+syntax enable
+
+"  filetypeを有効にする {{{1
 filetype plugin indent on

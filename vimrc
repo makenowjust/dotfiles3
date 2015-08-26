@@ -84,6 +84,9 @@ NeoBundleLazy 'vim-ruby/vim-ruby'
 " pegjs {{{3
 NeoBundleLazy "alunny/pegjs-vim"
 
+" pony {{{3
+NeoBundleLazy "dleonard0/pony-vim-syntax"
+
 " NeoBundleの終了処理 {{{2
 call neobundle#end()
 
@@ -508,6 +511,16 @@ if neobundle#tap('vim-ruby')
   call neobundle#config({
         \ 'autoload': {
         \   'filetypes': ['ruby', 'markdown'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" pony-vim-syntax {{{2
+if neobundle#tap('pony-vim-syntax')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['pony'],
         \ }})
 
   call neobundle#untap()

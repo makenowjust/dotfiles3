@@ -371,7 +371,7 @@ if neobundle#tap('lightline.vim')
         \ ['filename', 'readonly', 'modified']
         \ ]
   let g:lightline.active.right = [
-        \ ['percent', 'lineinfo'],
+        \ ['percent', 'lineinfo', 'charcount'],
         \ ['filetype'],
         \ ['fileencoding', 'fileformat']
         \ ]
@@ -379,6 +379,7 @@ if neobundle#tap('lightline.vim')
   let g:lightline.component_function = {
         \ 'fileformat': 'MyFileFormat',
         \ 'fileencoding': 'MyFileEncoding',
+        \ 'charcount': 'MyCharCount',
         \ }
 
   function! MyFileFormat()
@@ -391,6 +392,10 @@ if neobundle#tap('lightline.vim')
 
   function! MyFileEncoding()
     return (&fenc == '' ? &enc : &fenc) . (&bomb ? '+bomb' : '')
+  endfunction
+
+  function! MyCharCount()
+    return strchars(join(getline(1, '$'), "\n"))
   endfunction
 
   call neobundle#untap()

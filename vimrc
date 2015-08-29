@@ -264,6 +264,14 @@ call s:cmd_remap('h', 'tab help')
 noremap <silent> cc :<C-u>VisualColorColumn<CR>
 noremap <silent> cl :<C-u>setl cursorcolumn!<CR>
 
+inoremap <silent> z<Space> 　
+
+inoremap <silent> <C-j> <NOP>
+
+noremap <silent> j gj
+noremap <silent> k gk
+noremap <silent> gj j
+noremap <silent> gk k
 
 " 各プラグインの設定 {{{1
 

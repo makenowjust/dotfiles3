@@ -194,5 +194,8 @@ if status --is-interactive
   alias gtag 'git tag'
   alias gremote 'git remote'
   alias gmv 'git mv'
+  alias gbr 'git branch'
+  alias gbrd 'gbr -d'
+  alias gbrm 'gbr -m'
 
 end

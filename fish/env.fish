@@ -30,5 +30,8 @@ prepend_env INFOPATH "$HOME/.linuxbrew/share/info"
 prepend_env LIBRARY_PATH "$HOME/.linuxbrew/lib"
 prepend_env LD_LIBRARY_PATH "$HOME/.linuxbrew/lib"
 
+# cabalの設定
+prepend_env PATH ~/.cabal/bin
+
 fix_env LIBRARY_PATH
 fix_env LD_LIBRARY_PATH

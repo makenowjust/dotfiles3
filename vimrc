@@ -24,39 +24,50 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " NeoBundleでNeoBundle自身を管理 {{{2
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" vital.vim {{{2
+" 起動時に読み込まれるもの {{{2
+
+" vital.vim {{{3
 NeoBundle 'vim-jp/vital.vim'
 
-" VimProc {{{2
+" VimProc {{{3
 NeoBundle 'Shougo/vimproc.vim'
 
-" VimShell {{{2
-NeoBundleLazy 'Shougo/vimshell.vim'
+" statuslineをかっこよくする {{{3
+NeoBundle 'itchyny/lightline.vim'
 
-" カラースキーム {{{2
+" 検索をいい感じに {{{3
+NeoBundle 'haya14busa/incsearch.vim'
+
+" Unite {{{3
+NeoBundle 'Shougo/unite.vim'
+
+" editorconfig {{{3
+NeoBundle 'editorconfig/editorconfig-vim'
+
+" ビジュアルモード全般を矩形選択的に {{{3
+NeoBundle 'kana/vim-niceblock'
+
+" カラースキーム {{{3
 NeoBundle 'MakeNowJust/islenauts.vim'
 NeoBundle 'MakeNowJust/islenauts-lightline.vim'
 
-" 検索をいい感じに {{{2
-NeoBundle 'haya14busa/incsearch.vim'
 
-" vim-quickrun {{{2
+" 遅延読み込みされるもの {{{2
+
+" VimShell {{{3
+NeoBundleLazy 'Shougo/vimshell.vim'
+
+" vim-quickrun {{{3
 NeoBundleLazy 'thinca/vim-quickrun'
 
-" statuslineをかっこよくする {{{2
-NeoBundle 'itchyny/lightline.vim'
-
-" Gist {{{2
+" Gist {{{3
 NeoBundleLazy 'lambdalisue/vim-gista'
 
-" Unite {{{2
-NeoBundle 'Shougo/unite.vim'
-
-" ファイラ {{{2
+" ファイラ {{{3
 NeoBundleLazy 'Shougo/vimfiler.vim'
 
-" editorconfig {{{2
-NeoBundle 'editorconfig/editorconfig-vim'
+" carc.in {{{3
+NeoBundleLazy 'MakeNowJust/carcin.vim'
 
 " 言語毎のシンタックスハイライトなど {{{2
 

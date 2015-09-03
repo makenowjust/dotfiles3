@@ -284,6 +284,8 @@ noremap <silent> k gk
 noremap <silent> gj j
 noremap <silent> gk k
 
+nnoremap <silent> <CR> :<C-u>w<CR>
+
 " 各プラグインの設定 {{{1
 
 " vimproc.vim {{{2

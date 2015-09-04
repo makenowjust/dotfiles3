@@ -362,6 +362,14 @@ if neobundle#tap('vim-quickrun')
         \ 'outputter/buffer/close_on_empty': 1,
         \ }
 
+  if neobundle#is_installed('carcin.vim')
+    let g:quickrun_config['crystal/carcin'] = {
+          \ 'runner': 'vimscript',
+          \ 'command': 'CarcinRunFile',
+          \ 'exec': "%C %S crystal",
+          \ }
+  endif
+
   " <C-c>でquickrunを強制終了させる
   nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 

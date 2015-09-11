@@ -197,5 +197,6 @@ if status --is-interactive
   alias gbr 'git branch'
   alias gbrd 'gbr -d'
   alias gbrm 'gbr -m'
+  alias gft 'git fetch'
 
 end

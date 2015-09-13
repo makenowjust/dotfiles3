@@ -30,6 +30,9 @@ prepend_env INFOPATH "$HOME/.linuxbrew/share/info"
 prepend_env LIBRARY_PATH "$HOME/.linuxbrew/lib"
 prepend_env LD_LIBRARY_PATH "$HOME/.linuxbrew/lib"
 
+# nodebrewの設定
+prepend_env PATH "$HOME/.nodebrew/current/bin"
+
 # cabalの設定
 prepend_env PATH ~/.cabal/bin
 

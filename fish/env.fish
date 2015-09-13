@@ -36,5 +36,14 @@ prepend_env PATH "$HOME/.nodebrew/current/bin"
 # cabalの設定
 prepend_env PATH ~/.cabal/bin
 
+# torch7の設定
+prepend_env LUA_PATH "$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;$HOME/local/share/torch/install/share/lua/5.1/?.lua;$HOME/local/share/torch/install/share/lua/5.1/?/init.lua;./?.lua;$HOME/local/share/torch/install/share/luajit-2.1.0-alpha/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua"
+prepend_env LUA_CPATH "$HOME/.luarocks/lib/lua/5.1/?.so;$HOME/local/share/torch/install/lib/lua/5.1/?.so;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so"
+prepend_env PATH "$HOME/local/share/torch/install/bin"
+prepend_env LD_LIBRARY_PATH "$HOME/local/share/torch/install/lib"
+prepend_env DYLD_LIBRARY_PATH "$HOME/local/share/torch/install/lib"
+
+
 fix_env LIBRARY_PATH
 fix_env LD_LIBRARY_PATH
+fix_env DYLD_LIBRARY_PATH

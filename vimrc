@@ -71,6 +71,9 @@ NeoBundleLazy 'MakeNowJust/carcin.vim'
 
 " 言語毎のシンタックスハイライトなど {{{2
 
+" ES6 {{{3
+NeoBundleLazy "isRuslan/vim-es6"
+
 " HTML5 {{{3
 " NeoBundleLazy "othree/html5.vim"
 

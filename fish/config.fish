@@ -178,6 +178,7 @@ if status --is-interactive
   alias gad 'git add'
   alias gadp 'gad -p'
   alias gps 'git push'
+  alias gpsf 'gps -f'
   alias gpsu 'gps -u'
   alias gpst 'gps --tags'
   alias gpl 'git pull'

@@ -438,7 +438,7 @@ if neobundle#tap('vim-gista')
   call neobundle#config({
       \ 'autoload': {
       \   'commands': ['Gista'],
-      \   'mappings': '<Plug>(gista-',
+      \   'mappings': '<Plug>',
       \   'unite_sources': 'gista',
       \ }})
 
@@ -477,6 +477,26 @@ if neobundle#tap('vimfiler.vim')
           \ 'edit_action': 'tabopen',
           \ })
   endfunction
+
+  call neobundle#untap()
+endif
+
+" carcin.vim {{{2
+if neobundle#tap('carcin.vim')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'commands': ['CarcinRun', 'CarcinRunFile'],
+        \ }})
+
+  call neobundle#untap()
+endif
+
+" vim-es6 {{{2
+if neobundle#tap('vim-es6')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'filetypes': ['javascript'],
+        \ }})
 
   call neobundle#untap()
 endif
@@ -579,6 +599,7 @@ let g:markdown_fenced_languages = [
       \ 'javascript', 'js=javascript',
       \ 'json',
       \ 'ruby',
+      \ 'python',
       \ 'viml=vim',
       \ 'crystal',
       \ ]

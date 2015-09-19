@@ -5,6 +5,9 @@
 [push]
   default = simple
 
+[merge]
+  ff = false
+
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global

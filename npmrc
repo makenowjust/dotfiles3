@@ -1,4 +1,5 @@
 prefix=~/local
+save=true
 init.author.name=TSUYUSATO Kitsune
 init.author.email=make.just.on@gmail.com
 init.license=MIT

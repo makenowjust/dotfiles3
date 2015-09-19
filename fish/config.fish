@@ -174,6 +174,7 @@ if status --is-interactive
   alias gst 'git status -s -b'
   alias gcm 'git commit'
   alias gcmm 'gcm -m'
+  alias gcml 'gcm --allow-empty --cleanup=whitespace --no-status'
   alias gcma 'gcm -a'
   alias gad 'git add'
   alias gadp 'gad -p'

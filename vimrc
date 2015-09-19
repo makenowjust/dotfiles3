@@ -290,6 +290,13 @@ noremap <silent> gk k
 
 nnoremap <silent> <CR> :<C-u>w<CR>
 
+
+" autocmd達 {{{1
+
+augroup MYVIMRC
+  au BufRead,BufNewFile COMMIT_EDITMSG if system('git symbolic-ref --short HEAD') ==# "commlog\n" | setf markdown | endif
+augroup END
+
 " 各プラグインの設定 {{{1
 
 " vimproc.vim {{{2

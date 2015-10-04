@@ -17,12 +17,6 @@ end
 # MANPATHは:が1つ多くないと、システムのmanを読み込めなくなる
 set -x MANPATH :
 
-# HOME直下のlocalを設定
-prepend_env PATH ~/local/bin
-prepend_env MANPATH ~/local/share/man
-prepend_env LIBRARY_PATH ~/local/lib
-prepend_env LD_LIBRARY_PATH ~/local/lib
-
 # linuxbrewの設定
 prepend_env PATH "$HOME/.linuxbrew/bin"
 prepend_env MANPATH "$HOME/.linuxbrew/share/man"
@@ -43,6 +37,11 @@ prepend_env PATH "$HOME/local/share/torch/install/bin"
 prepend_env LD_LIBRARY_PATH "$HOME/local/share/torch/install/lib"
 prepend_env DYLD_LIBRARY_PATH "$HOME/local/share/torch/install/lib"
 
+# HOME直下のlocalを設定
+prepend_env PATH ~/local/bin
+prepend_env MANPATH ~/local/share/man
+prepend_env LIBRARY_PATH ~/local/lib
+prepend_env LD_LIBRARY_PATH ~/local/lib
 
 fix_env LIBRARY_PATH
 fix_env LD_LIBRARY_PATH

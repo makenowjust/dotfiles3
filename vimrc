@@ -163,8 +163,8 @@ set modelines=3
 " set clipboard=unnamedplus
 " ↑あると、削除時にもクリップボードに文字が入ってしまって微妙
 
-" あいまいな文字の幅を2にする
-set ambiwidth=double
+" あいまいな文字の幅を1にする
+set ambiwidth=single
 
 " 折り畳みを有効にする
 set foldenable

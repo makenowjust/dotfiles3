@@ -278,9 +278,6 @@ call s:cmd_remap('h', 'tab help')
 noremap <silent> cc :<C-u>VisualColorColumn<CR>
 noremap <silent> cl :<C-u>setl cursorcolumn!<CR>
 
-inoremap <silent> z<Space> 　
-inoremap <silent> z! ！
-
 inoremap <silent> <C-j> <NOP>
 
 noremap <silent> j gj

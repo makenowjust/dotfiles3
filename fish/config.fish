@@ -194,7 +194,7 @@ if status --is-interactive
   alias gco 'git checkout'
   alias gcob 'gco -b'
   alias gtag 'git tag'
-  alias gremote 'git remote'
+  alias gremote 'git remote -v'
   alias gmv 'git mv'
   alias gbr 'git branch'
   alias gbrd 'gbr -d'

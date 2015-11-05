@@ -37,6 +37,10 @@ prepend_env PATH "$HOME/local/share/torch/install/bin"
 prepend_env LD_LIBRARY_PATH "$HOME/local/share/torch/install/lib"
 prepend_env DYLD_LIBRARY_PATH "$HOME/local/share/torch/install/lib"
 
+# Go言語関連
+prepend_env GOPATH "$HOME/.golang"
+prepend_env PATH "$HOME/.golang/bin"
+
 # HOME直下のlocalを設定
 prepend_env PATH ~/local/bin
 prepend_env MANPATH ~/local/share/man

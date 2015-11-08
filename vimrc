@@ -63,6 +63,9 @@ NeoBundleLazy 'thinca/vim-quickrun'
 " Gist {{{3
 NeoBundleLazy 'lambdalisue/vim-gista'
 
+" Git {{{3
+NeoBundleLazy 'lambdalisue/vim-gita'
+
 " ファイラ {{{3
 NeoBundleLazy 'Shougo/vimfiler.vim'
 
@@ -447,6 +450,16 @@ if neobundle#tap('vim-gista')
         \ 'split': 'rightbelow split',
         \ 'vsplit': 'rightbelow split',
         \ }
+
+  call neobundle#untap()
+endif
+
+" vim-gita {{{2
+if neobundle#tap('vim-gita')
+  call neobundle#config({
+        \ 'autoload': {
+        \   'commands': ['Gita'],
+        \ }})
 
   call neobundle#untap()
 endif

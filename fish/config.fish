@@ -159,6 +159,9 @@ if status --is-interactive
   alias less 'less -r'
   alias vim 'vim -p'
 
+  # Vimmerあるある
+  alias :q 'exit'
+
   # エイリアス
   alias cls 'clear'
 

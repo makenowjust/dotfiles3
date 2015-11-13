@@ -17,6 +17,11 @@ end
 # MANPATHは:が1つ多くないと、システムのmanを読み込めなくなる
 set -x MANPATH :
 
+# rbenvの設定
+prepend_env PATH "$HOME/.rbenv/bin"
+prepend_env PATH "$HOME/.rbenv/shims"
+rbenv rehash >/devnull ^&1
+
 # linuxbrewの設定
 prepend_env PATH "$HOME/.linuxbrew/bin"
 prepend_env MANPATH "$HOME/.linuxbrew/share/man"

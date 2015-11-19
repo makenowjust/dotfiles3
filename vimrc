@@ -104,11 +104,6 @@ NeoBundleLazy "alunny/pegjs-vim"
 " pony {{{3
 NeoBundleLazy "dleonard0/pony-vim-syntax"
 
-" NeoBundleの終了処理 {{{2
-call neobundle#end()
-
-NeoBundleCheck
-
 " set系 {{{1
 
 " 行番号の表示
@@ -330,13 +325,14 @@ endif
 
 " islenauts.vim {{{2
 if neobundle#tap('islenauts.vim')
-  colorscheme islenauts
+  function! neobundle#hooks.on_post_source(bundle)
+    colorscheme islenauts
 
-  " 背景を透過する
-  hi Normal ctermbg=none
-  hi NonText ctermbg=none
-  hi CursorLine ctermbg=none
-  " hi CursorColumn ctermbg=none
+    " 背景を透過する
+    hi Normal ctermbg=none
+    hi NonText ctermbg=none
+    hi CursorLine ctermbg=none
+  endfunction
 
   call neobundle#untap()
 endif
@@ -600,6 +596,11 @@ if neobundle#tap('pony-vim-syntax')
 
   call neobundle#untap()
 endif
+
+" NeoBundleの終了処理 {{{1
+call neobundle#end()
+
+NeoBundleCheck
 
 " シンタックスハイライトの設定 {{{1
 

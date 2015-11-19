@@ -20,7 +20,7 @@ set -x MANPATH :
 # rbenvの設定
 prepend_env PATH "$HOME/.rbenv/bin"
 prepend_env PATH "$HOME/.rbenv/shims"
-rbenv rehash >/devnull ^&1
+type rbenv; and rbenv rehash >/devnull ^&1
 
 # linuxbrewの設定
 prepend_env PATH "$HOME/.linuxbrew/bin"

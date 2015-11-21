@@ -32,6 +32,11 @@ NeoBundle 'vim-jp/vital.vim'
 " VimProc {{{3
 NeoBundle 'Shougo/vimproc.vim'
 
+" カラースキーム {{{3
+NeoBundle 'MakeNowJust/islenauts.vim'
+NeoBundle 'MakeNowJust/islenauts-lightline.vim'
+
+
 " statuslineをかっこよくする {{{3
 NeoBundle 'itchyny/lightline.vim'
 
@@ -46,11 +51,6 @@ NeoBundle 'editorconfig/editorconfig-vim'
 
 " ビジュアルモード全般を矩形選択的に {{{3
 NeoBundle 'kana/vim-niceblock'
-
-" カラースキーム {{{3
-NeoBundle 'MakeNowJust/islenauts.vim'
-NeoBundle 'MakeNowJust/islenauts-lightline.vim'
-
 
 " 遅延読み込みされるもの {{{2
 
@@ -116,6 +116,11 @@ set relativenumber
 " タブ文字や末尾の空白を可視化
 set list
 set listchars=tab:>-,extends:<,trail:-
+
+" 色付け
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " statuslineを常に表示
 set laststatus=2
@@ -337,6 +342,46 @@ if neobundle#tap('islenauts.vim')
   call neobundle#untap()
 endif
 
+" lightline.vim {{{2
+if neobundle#tap('lightline.vim')
+  let g:lightline = {}
+  let g:lightline.colorscheme = 'islenauts'
+  let g:lightline.active = {}
+  let g:lightline.active.left = [
+        \ ['mode', 'paste'],
+        \ ['filename', 'readonly', 'modified']
+        \ ]
+  let g:lightline.active.right = [
+        \ ['percent', 'lineinfo', 'charcount'],
+        \ ['filetype'],
+        \ ['fileencoding', 'fileformat']
+        \ ]
+  let g:lightline.inactive = g:lightline.active
+  let g:lightline.component_function = {
+        \ 'fileformat': 'MyFileFormat',
+        \ 'fileencoding': 'MyFileEncoding',
+        \ 'charcount': 'MyCharCount',
+        \ }
+
+  function! MyFileFormat()
+    return {
+          \ 'unix': '"\n"',
+          \ 'dos': '"\r\n"',
+          \ 'mac': '"\r"',
+          \ }[&ff]
+  endfunction
+
+  function! MyFileEncoding()
+    return (&fenc == '' ? &enc : &fenc) . (&bomb ? '+bomb' : '')
+  endfunction
+
+  function! MyCharCount()
+    return strchars(join(getline(1, '$'), "\n"))
+  endfunction
+
+  call neobundle#untap()
+endif
+
 " incsearch.vim {{{2
 if neobundle#tap('incsearch.vim')
   map / <Plug>(incsearch-forward)
@@ -385,46 +430,6 @@ if neobundle#tap('vim-quickrun')
 
   nnoremap <silent> [quickrun]q :<C-u>QuickRun<CR>
   nnoremap <silent> [quickrun]o :<C-u>only<CR>
-
-  call neobundle#untap()
-endif
-
-" lightline.vim {{{2
-if neobundle#tap('lightline.vim')
-  let g:lightline = {}
-  let g:lightline.colorscheme = 'islenauts'
-  let g:lightline.active = {}
-  let g:lightline.active.left = [
-        \ ['mode', 'paste'],
-        \ ['filename', 'readonly', 'modified']
-        \ ]
-  let g:lightline.active.right = [
-        \ ['percent', 'lineinfo', 'charcount'],
-        \ ['filetype'],
-        \ ['fileencoding', 'fileformat']
-        \ ]
-  let g:lightline.inactive = g:lightline.active
-  let g:lightline.component_function = {
-        \ 'fileformat': 'MyFileFormat',
-        \ 'fileencoding': 'MyFileEncoding',
-        \ 'charcount': 'MyCharCount',
-        \ }
-
-  function! MyFileFormat()
-    return {
-          \ 'unix': '"\n"',
-          \ 'dos': '"\r\n"',
-          \ 'mac': '"\r"',
-          \ }[&ff]
-  endfunction
-
-  function! MyFileEncoding()
-    return (&fenc == '' ? &enc : &fenc) . (&bomb ? '+bomb' : '')
-  endfunction
-
-  function! MyCharCount()
-    return strchars(join(getline(1, '$'), "\n"))
-  endfunction
 
   call neobundle#untap()
 endif
